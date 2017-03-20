@@ -13,6 +13,7 @@ public class inputParser {
 		while (input.hasNextLine()) {
         line = input.nextLine();
         TimeComplexity.processLineInit(line);//call the method for each and every line of input
+        TimeComplexity.processLineForLoop(line);
                
     }
 	System.out.println(System.currentTimeMillis());
