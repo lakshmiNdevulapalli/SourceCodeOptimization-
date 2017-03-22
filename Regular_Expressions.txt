@@ -1,0 +1,16 @@
+Regular Expressions: 
+
+String: \\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*\\\"[a-zA-Z]*\\s*[a-zA-Z]*\\\"\\s*;
+
+Int: \\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*\\d+\\s*; And 
+	  \\s*([^\\s]*int)\\s*.*?\\s*=\\s*.*?\\s*;
+
+Float: \\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*\\d+.\\d+\\s*;
+
+Boolean: \\s*([^\\s]*boolean)\\s*[a-zA-Z]*\\s*=\\s*[tT]rue\\s*;\\s*([^\\s]*boolean)\\s*[a-zA-Z]*\\s*=\\s*[fF]alse\\s*;
+
+While: \\s*while\\(.*?\\)\\{
+
+For: \\s*for\\s*\\([^;]*?;[^;]*?;[^)]*?\\)\\{ And \\s*for\\s*\\([^;]*?;[^;]*?;[^)]*?\\)
+
+if: \\s*if\\(.*?\\)\\{
