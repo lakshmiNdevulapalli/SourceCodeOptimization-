@@ -1,6 +1,6 @@
 Regular Expressions: 
 
-String: \\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*\\\"[a-zA-Z]*\\s*[a-zA-Z]*\\\"\\s*;
+String: \\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*\\\".*?\\\"\\s*;
 
 Int: \\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*\\d+\\s*; And 
 	  \\s*([^\\s]*int)\\s*.*?\\s*=\\s*.*?\\s*;
