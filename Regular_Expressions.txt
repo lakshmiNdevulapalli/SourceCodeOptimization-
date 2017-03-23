@@ -20,3 +20,5 @@ Char: \\s*([^\\s]*char)\\s*[a-zA-Z]*\\s*=\\s*[a-zA-Z]{1}\\s*;
 { : \\s*{
 
 } : \\s*}
+
+import: \\s*import\\s*.*?\\s*;
