@@ -8,22 +8,22 @@ public class TimeComplexity extends inputParser {
  
 	WellFormedExpressionChecker bb = new  WellFormedExpressionChecker();
 	public static double processLineInit(String wordParse){
-		//Regex to recognize all variable initializations.
+		
+		/*Regex to recognize all variable initializations and import statements.*/
 		
 		Pattern p = Pattern.compile("\\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*\\\".*?\\\"\\s*;|"
 	 		+ "\\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*\\d+\\s*;|"
 	 		+ "\\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*\\d+.\\d+\\s*;|\\s*([^\\s]*boolean)\\s*[a-zA-Z]*\\s*=\\s*[tT]rue\\s*;|"
-	 		+ "\\s*([^\\s]*boolean)\\s*[a-zA-Z]*\\s*=\\s*[fF]alse\\s*;");
+	 		+ "\\s*([^\\s]*boolean "
+	 		+ " )\\s*[a-zA-Z]*\\s*=\\s*[fF]alse\\s*;|\\s*import\\s*.*?\\s*;");
  	
 		Matcher m = p.matcher(wordParse);
 		if(m.matches()){
-    	 complexity++;
+    	 complexity++;	//increasing timecomplexity as the tc for initialization statements is O(1).
      	 //System.out.println(complexity);
-    	 System.out.println(wordParse);
+    	 System.out.println(wordParse); //printing matched statements with the regexs 
 		}
-     	//System.out.println(m.matches());
-     	
-     	System.out.println(complexity);
+        System.out.println(complexity); //printing the current complexity
      	return complexity;
      	
 	}
@@ -40,16 +40,16 @@ public class TimeComplexity extends inputParser {
 			 //int index = 0;
 			 System.out.println(wordParse);	
 			 int conditionalIndex1=0;
-			 conditionalIndex1 = wordParse.indexOf('<');
+			 conditionalIndex1 = wordParse.indexOf('<');	//to get the position of '<'
 			 if(conditionalIndex1 > 0){					//to make sure the value of conditionalIndex1 is not negative
 				 extractN(conditionalIndex1,wordParse);
 				 System.out.println("Here is the nValue bro: "+nValue); //making sure nValue hasn't changed
 			 }
 			 else if(conditionalIndex1 < 0){ 
-				 conditionalIndex1 = wordParse.indexOf('>');
+				 conditionalIndex1 = wordParse.indexOf('>');//to get the position of '>'
 				 
 				 if(conditionalIndex1 > 0)
-					 extractN(conditionalIndex1,wordParse);
+					 extractN(conditionalIndex1,wordParse); //calling exctractN value method
 				 	 System.out.println("Here is the nValue bro: "+nValue); //Making sure nValue hasn't changed 
 			 }
 			 else
@@ -62,21 +62,21 @@ public class TimeComplexity extends inputParser {
  		/*Method to extract n value out of for loop and return nValue*/
  	
  		public static int extractN(int conditionalIndex1,String wordParse){
- 			int secondSemiColonFinder = wordParse.indexOf(';',conditionalIndex1+1);
+ 			int secondSemiColonFinder = wordParse.indexOf(';',conditionalIndex1+1); // to identify the position of second semicolon in for loop
 			int index = conditionalIndex1+1;
 			 
 			 String concatination = "";
 			 
-			 while(index < secondSemiColonFinder){
+			 while(index < secondSemiColonFinder){ //loops till it reach the second semicolon 
 				 
-				 concatination = concatination+wordParse.charAt(index);
+				 concatination = concatination+wordParse.charAt(index); //concatinate the characters and makes the final word
 				 index++;
 				 //System.out.print(concatination); 
 			 }
 			 //System.out.println("Here is the value of n: "+concatination);
 			 char equalSymbolChecker = concatination.charAt(0);
 			 //System.out.println(equalSymbolChecker);
-			 if(equalSymbolChecker == '='){
+			 if(equalSymbolChecker == '='){		//checking for <= and >=
 				 String trimmedString = concatination.substring(1); //to remove = in the extracted string
 				 //System.out.println(trimmedString);
 				 nValue = Integer.parseInt(trimmedString); //to convert extracted string to integer
