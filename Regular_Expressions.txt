@@ -9,11 +9,11 @@ Float: \\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*\\d+.\\d+\\s*;
 
 Boolean: \\s*([^\\s]*boolean)\\s*[a-zA-Z]*\\s*=\\s*[tT]rue\\s*;\\s*([^\\s]*boolean)\\s*[a-zA-Z]*\\s*=\\s*[fF]alse\\s*;
 
-While: \\s*while\\(.*?\\)\\{
+While: \\s*while\\(.*?\\)\\{ And \\s*while\\(.*?\\)\\{.*?\\}
 
 For: \\s*for\\s*\\([^;]*?;[^;]*?;[^)]*?\\)\\{ And \\s*for\\s*\\([^;]*?;[^;]*?;[^)]*?\\)
 
-if: \\s*if\\(.*?\\)\\{
+if: \\s*if\\(.*?\\)\\{ And \\s*if\\(.*?\\)\\{.*?\\}
 
 Char: \\s*([^\\s]*char)\\s*[a-zA-Z]*\\s*=\\s*[a-zA-Z]{1}\\s*;
 
