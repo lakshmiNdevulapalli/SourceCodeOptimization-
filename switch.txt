@@ -1,0 +1,30 @@
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+public class SpaceComplexity extends inputParser {
+	static double complexity;
+	WellFormedExpressionChecker bb = new  WellFormedExpressionChecker();
+	public static double processLineInit(String wordParse){
+		
+		/*Regex to recognize all variable initializations and import statements.*/
+		
+		Pattern p = Pattern.compile("\\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*\\\".*?\\\"\\s*;|"
+	 		+ "\\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*\\d+\\s*;|"
+	 		+ "\\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*\\d+.\\d+\\s*;|\\s*([^\\s]*boolean)\\s*[a-zA-Z]*\\s*=\\s*[tT]rue\\s*;|"
+	 		+ "\\s*([^\\s]*boolean "
+	 		+ " )\\s*[a-zA-Z]*\\s*=\\s*[fF]alse\\s*;|\\s*import\\s*.*?\\s*;"
+			+ "\\s*([^\\s]*char)\\s*[a-zA-Z]*\\s*=\\s*[a-zA-Z]{1}\\s*;");
+ 	
+		Matcher m = p.matcher(wordParse);
+		switch(m){
+			case 1: if( p == ("\\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*\\\".*?\\\"\\s*;|"))
+					complexity += 4;
+			case 2: if(m.matches("\\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*\\d+\\s*;|"))
+					complexity += 2;
+			case 3: if(m.matches("\\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*\\d+.\\d+\\s*;|\\s*([^\\s]*boolean)\\s*[a-zA-Z]*\\s*=\\s*[tT]rue\\s*;|")
+					complexity += 1;
+			case 4: if(m.matches("\\s*([^\\s]*char)\\s*[a-zA-Z]*\\s*=\\s*[a-zA-Z]{1}\\s*;")
+					complexity += 1;
+		}
+		System.out.println(complexity);
