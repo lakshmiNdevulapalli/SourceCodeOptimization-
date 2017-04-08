@@ -3,19 +3,19 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 public class SpaceComplexity extends inputParser {
-	static double complexity =0;
+	static double spaceComplexity =0;
 	public static double processLineInit(String wordParse){
 		
 
  	
-		System.out.println(".....................Space complexity works here......................");
+		//System.out.println(".....................Space complexity works here......................");
 		Pattern p1 =  Pattern.compile("\\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*\\\".*?\\\"\\s*;");//String
 		Pattern p2 =  Pattern.compile("\\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*\\d+\\s*;");//int
 		Pattern p3 =  Pattern.compile("\\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*\\d+.\\d+\\s*;");//float
 		Pattern p4 =  Pattern.compile("\\s*([^\\s]*char)\\s*[a-zA-Z]*\\s*=\\s*[a-zA-Z]{1}\\s*;");//char
 		Pattern p5 =  Pattern.compile("\\s*([^\\s]*boolean)\\s*[a-zA-Z]*\\s*=\\s*[tT]rue\\s*;|\\s*([^\\s]*boolean)\\s*[a-zA-Z]*\\s*=\\s*[fF]alse\\s*");//boolean
 		
-		//comparision method 
+		//Comparison method 
 		
 		Matcher m = p1.matcher(wordParse);
 		Matcher m1 = p2.matcher(wordParse);
@@ -23,22 +23,21 @@ public class SpaceComplexity extends inputParser {
 		Matcher m3 = p4.matcher(wordParse);
 		Matcher m4 = p5.matcher(wordParse);
 		if(m.matches())
-			complexity += 4;
+			spaceComplexity += 4;
 		else if(m1.matches())
-			complexity += 4;
+			spaceComplexity += 4;
 		else if(m2.matches())
-			complexity += 4;
+			spaceComplexity += 4;
 		else if(m3.matches())
-			complexity += 2;
+			spaceComplexity += 2;
 		else if(m4.matches())
-			complexity += 1;
+			spaceComplexity += 1;
 		else
 			System.out.println("No matching found");
 		//complexity += complexity;
-		System.out.println("Space complexity is: "+complexity);
-		return complexity;
+		//System.out.println("Space complexity is: "+complexity);
+		return spaceComplexity;
 		
 	}
-//Contact GitHub 
-	//return complexity;
+
 }
