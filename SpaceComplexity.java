@@ -3,11 +3,8 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 public class SpaceComplexity extends inputParser {
-	static double spaceComplexity =0;
-	public static double processLineInit(String wordParse){
-		
-
- 	
+	static int initSpaceComplexity =0;
+	public static double processLineInit(String wordParse){ 	
 		//System.out.println(".....................Space complexity works here......................");
 		Pattern p1 =  Pattern.compile("\\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*\\\".*?\\\"\\s*;");//String
 		Pattern p2 =  Pattern.compile("\\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*\\d+\\s*;");//int
@@ -23,20 +20,20 @@ public class SpaceComplexity extends inputParser {
 		Matcher m3 = p4.matcher(wordParse);
 		Matcher m4 = p5.matcher(wordParse);
 		if(m.matches())
-			spaceComplexity += 4;
+			initSpaceComplexity += 4;
 		else if(m1.matches())
-			spaceComplexity += 4;
+			initSpaceComplexity += 4;
 		else if(m2.matches())
-			spaceComplexity += 4;
+			initSpaceComplexity += 4;
 		else if(m3.matches())
-			spaceComplexity += 2;
+			initSpaceComplexity += 2;
 		else if(m4.matches())
-			spaceComplexity += 1;
+			initSpaceComplexity += 1;
 		else
-			System.out.println("No matching found");
+			System.out.println();
 		//complexity += complexity;
 		//System.out.println("Space complexity is: "+complexity);
-		return spaceComplexity;
+		return initSpaceComplexity;
 		
 	}
 
