@@ -10,24 +10,26 @@ public class inputParser {
 		TimeComplexity tc  = new TimeComplexity();
 		SpaceComplexity sc = new SpaceComplexity();
 		int timeComplexity = 0;
+		int spaceComplexity =0;
 		Scanner input = new Scanner(new File("example1.java")); // input java file
 		/*Line by line parsing*/
 		while (input.hasNextLine()) {
 			line = input.nextLine();
 			lineCounter++;
-			TimeComplexity.processLineInit(line,lineCounter);//call the method for each and every line of input
-			//System.out.println("Testing at input parser"+tc.initComplexity);
-			
-			TimeComplexity.processLineForLoop(line,lineCounter);//calls this method to search for for loop in the input
-			
-			
-			
-			//sc.processLineInit(line);
-        
-               
-    }
-		timeComplexity = tc.initComplexity+tc.forLoopComplexity;
+			tc.processLineInit(line,lineCounter);//call the method for each and every line of input
+			tc.processLineForLoop(line,lineCounter);//calls this method to search for for loop in the input
+			tc.processWhileLoop(line, lineCounter);
+			tc.processPrints(line);
+			sc.processLineInit(line);
+		}
+		System.out.println("===================================================\n Total time complexity of print statments : "+tc.printComplexity+"\n===============================================");
+
+		timeComplexity = tc.initComplexity+tc.forLoopComplexity+tc.whileComplexity+tc.printComplexity;
 		System.out.println("total time complexity is: "+timeComplexity);
+		/*Space complexity loop*/
+		
+		spaceComplexity = sc.initSpaceComplexity;
+		System.out.println("Total space complexity is: "+spaceComplexity);
 	//tc.findKeyWord(line)
     input.close();
 }  
