@@ -7,9 +7,10 @@ import java.util.regex.Pattern;
 public class TimeComplexity extends inputParser {
 	static int forLoopComplexity;
 	static int initComplexity;
+	static int whileComplexity;
+	static int printComplexity;
 	static int nValue=0;
 	static int numLines =0;
-	WellFormedExpressionChecker bb = new  WellFormedExpressionChecker();
 	public static double processLineInit(String wordParse, int currentline){
 		
 		
@@ -19,7 +20,7 @@ public class TimeComplexity extends inputParser {
 	 		+ "\\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*\\d+\\s*;|"
 	 		+ "\\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*\\d+.\\d+\\s*;|\\s*([^\\s]*boolean)\\s*[a-zA-Z]*\\s*=\\s*[tT]rue\\s*;|"
 	 		+ "\\s*([^\\s]*boolean "
-	 		+ " )\\s*[a-zA-Z]*\\s*=\\s*[fF]alse\\s*;|\\s*import\\s*.*?\\s*;");
+	 		+ " )\\s*[a-zA-Z]*\\s*=\\s*[fF]alse\\s*;|\\s*import\\s*.*?\\s*;|\\s*([^\\s]*double)\\s*[a-zA-Z]*\\s*=\\s*[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?;");
  	
 		Matcher m = p.matcher(wordParse);
 		if(m.matches()){
@@ -41,8 +42,6 @@ public class TimeComplexity extends inputParser {
 		inputParser ip = new inputParser();
 		if(m.matches()){
 			 System.out.println("For identified");
-			 
-			 //System.out.println("current line value is: " +currentline);
 			 /*call a method to calculate number of lines within for loop*/
 		 		countLinesInLoop(currentline);
 		 		System.out.println();
@@ -138,5 +137,84 @@ public class TimeComplexity extends inputParser {
 			return nValue;
 			
  		}
-	}
+ 		/*method to calculate time complexity for WHILE loop*/
+ 		public static double processWhileLoop(String wordParse, int currentline) throws FileNotFoundException{
+ 			Pattern p = Pattern.compile("\\s*while\\(.*?\\)"); //regular expression to recognize while loop with no spaces in syntax
+ 			Matcher m = p.matcher(wordParse);
+ 			inputParser ip = new inputParser();
+ 			if(m.matches()){
+ 				 System.out.println("While identified");
+ 				 numLines =0;
+ 				 /*call a method to calculate number of lines within for loop*/
+ 		 		countLinesInLoop(currentline);
+ 		 		System.out.println();
+ 		 		System.out.println("======================================== \n number of lines in while loop: "+ numLines+"\n========================================   \n");
+ 		 		System.out.println(wordParse);	
+ 				 int conditionalIndex1=0;
+ 				 conditionalIndex1 = wordParse.indexOf('>');	//to get the position of '>'
+ 				 
+ 				 if(conditionalIndex1 > 0){					//to make sure the value of conditionalIndex1 is not negative
+ 					extractNWhile(conditionalIndex1,wordParse);
+ 					 System.out.println("while loop's sentinel value: "+nValue); //making sure nValue hasn't changed
+ 					 whileComplexity = nValue*numLines;
+ 						System.out.println("=========================================== \n Time complexity of while loop is : " +whileComplexity+"\n==========================================");
+ 				 }
+ 				 else if(conditionalIndex1 < 0){ 
+ 					 conditionalIndex1 = wordParse.indexOf('<');//to get the position of '>'
+ 					 
+ 					 if(conditionalIndex1 > 0)
+ 						extractNWhile(conditionalIndex1,wordParse); //calling exctractN value method
+ 					 	 System.out.println("while loop's sentinel value: "+nValue); //Making sure nValue hasn't changed 
+ 					 	whileComplexity = nValue*numLines;
+ 						System.out.println("=========================================== \n Time complexity of while loop is : " +whileComplexity+"\n==========================================");
+ 				 }
+ 				 else
+ 					 System.out.println("Couldn't find the special character"); 
+ 		    	}
+ 			
+ 			
+ 			return whileComplexity;
+ 		}
+ 		/*Method to extract nValue in while loop*/
+ 		public static int extractNWhile(int conditionalIndex1,String wordParse){
+ 			int conditioner = wordParse.indexOf(')'); // to identify the position of ) in while loop
+			int index = conditionalIndex1+1;
+			 
+			 String concatination = "";
+			 
+			 while(index < conditioner){ //loops till it reach the closing paranthesis  
+				 
+				 concatination = concatination+wordParse.charAt(index); //concatinate the characters and makes the final word
+				 index++;
+				 //System.out.print(concatination); 
+			 }
+			 //System.out.println("Here is the value of n: "+concatination);
+			 char equalSymbolChecker = concatination.charAt(0);
+			 //System.out.println(equalSymbolChecker);
+			 if(equalSymbolChecker == '='){		//checking for <= and >=
+				 String trimmedString = concatination.substring(1); //to remove = in the extracted string
+				 //System.out.println(trimmedString);
+				 nValue = Integer.parseInt(trimmedString); //to convert extracted string to integer
+				 // System.out.println(nValue+20); //cross checking nValue				 
+			 }
+			 else{
+				 nValue = Integer.parseInt(concatination);
+				 //System.out.println(nValue+20); //cross check nValue
+				 
+			 }
+			return nValue;
+			
+ 		}
+ 		/*Module to calculate time complexity of print statements*/
+ 		public static int processPrints(String wordParse){
+ 			Pattern p = Pattern.compile("\\s*System.out.println\\(([^;].*\\)*);|\\s*System.out.print\\(([^;].*\\)*);"); //to identify print statements 
+ 			Matcher m = p.matcher(wordParse);
+ 			if(m.matches()){
+ 				printComplexity++;
+ 				System.out.println(wordParse);
+ 			}
+			return printComplexity;
+ 			
+ 		}
+}
 
