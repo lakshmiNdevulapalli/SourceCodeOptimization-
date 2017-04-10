@@ -30,3 +30,5 @@ Long: \\s*([^\\s]*long)\\s*[a-zA-Z]*\\s*=\\s*[-+]?[0-9]*\\s*;|\\s*([^\\s]*long)\
 Short: \\s*([^\\s]*short)\\s*[a-zA-Z]*\\s*=\\s*[-+]?[0-9]*\\s*;
 
 print: \\s*System.out.println\\(([^;].*\\)*);|\\s*System.out.print\\(([^;].*\\)*);
+
+Mathematical Expression: \\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*.*?\\s*;
