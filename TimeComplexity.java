@@ -9,24 +9,26 @@ public class TimeComplexity extends inputParser {
 	static int initComplexity;
 	static int whileComplexity;
 	static int printComplexity;
+	static int ifComplexity;
 	static int nValue=0;
 	static int numLines =0;
+	/*module to calculate time complexity of initial statemets*/
 	public static double processLineInit(String wordParse, int currentline){
 		
 		
-		/*Regex to recognize all variable initializations and import statements.*/
+		/*Regex to recognize all variable initializations and import statements and math expressions.*/
 		
 		Pattern p = Pattern.compile("\\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*\\\".*?\\\"\\s*;|"
 	 		+ "\\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*\\d+\\s*;|"
 	 		+ "\\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*\\d+.\\d+\\s*;|\\s*([^\\s]*boolean)\\s*[a-zA-Z]*\\s*=\\s*[tT]rue\\s*;|"
 	 		+ "\\s*([^\\s]*boolean "
-	 		+ " )\\s*[a-zA-Z]*\\s*=\\s*[fF]alse\\s*;|\\s*import\\s*.*?\\s*;|\\s*([^\\s]*double)\\s*[a-zA-Z]*\\s*=\\s*[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?;");
+	 		+ " )\\s*[a-zA-Z]*\\s*=\\s*[fF]alse\\s*;|\\s*import\\s*.*?\\s*;|\\s*([^\\s]*double)\\s*[a-zA-Z]*\\s*=\\s*[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?;|\\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*.*?\\s*;");
  	
 		Matcher m = p.matcher(wordParse);
 		if(m.matches()){
-    	 initComplexity++;	//increasing timecomplexity as the tc for initialization statements is O(1).
+    	 initComplexity++;	//increasing time complexity as the tc for initialization statements is O(1).
      	 //System.out.println(complexity);
-    	 System.out.println(wordParse); //printing matched statements with the regexs 
+    	 System.out.println(wordParse); //printing matched statements with the regex 
 		}
         //System.out.println(initComplexity); //printing the current complexity
      	return initComplexity;
@@ -35,7 +37,8 @@ public class TimeComplexity extends inputParser {
 	/*Calculating time complexity for For loop*/
 	
 	
- 	public static double processLineForLoop(String wordParse, int currentline) throws FileNotFoundException, StackUnderflowException{
+ 	/*Module to calculate time complexity of fro loop*/
+	public static double processLineForLoop(String wordParse, int currentline) throws FileNotFoundException, StackUnderflowException{
  		
  		Pattern p = Pattern.compile("\\s*for\\s*\\([^;]*?;[^;]*?;[^)]*?\\)"); //regular expression to recognize for loop with no spaces in syntax
 		Matcher m = p.matcher(wordParse);
@@ -73,7 +76,8 @@ public class TimeComplexity extends inputParser {
 		return forLoopComplexity;
 		}
  		/*Method to count number of lines within the loop*/
- 		public static int countLinesInLoop(int currentline) throws FileNotFoundException {
+	/*Module to count number of lines in loops*/
+	public static int countLinesInLoop(int currentline) throws FileNotFoundException {
  			//int numLines=0;	//initial number of lines in for loop
  			String line = "NULL";
  			int tempCounter =0; //temp counter to count till we reach current position 
@@ -108,7 +112,8 @@ public class TimeComplexity extends inputParser {
  }
 		/*Method to extract n value out of for loop and return nValue*/
  	
- 		public static int extractN(int conditionalIndex1,String wordParse){
+ 	/*Module to extract n value in for loop*/	
+		public static int extractN(int conditionalIndex1,String wordParse){
  			int secondSemiColonFinder = wordParse.indexOf(';',conditionalIndex1+1); // to identify the position of second semicolon in for loop
 			int index = conditionalIndex1+1;
 			 
@@ -176,7 +181,8 @@ public class TimeComplexity extends inputParser {
  			return whileComplexity;
  		}
  		/*Method to extract nValue in while loop*/
- 		public static int extractNWhile(int conditionalIndex1,String wordParse){
+ 		/*Module to extract n value in while loop*/
+ 			public static int extractNWhile(int conditionalIndex1,String wordParse){
  			int conditioner = wordParse.indexOf(')'); // to identify the position of ) in while loop
 			int index = conditionalIndex1+1;
 			 
@@ -206,7 +212,8 @@ public class TimeComplexity extends inputParser {
 			
  		}
  		/*Module to calculate time complexity of print statements*/
- 		public static int processPrints(String wordParse){
+ 	/*Module to calculate time complexity of print statements*/
+ 	public static int processPrints(String wordParse){
  			Pattern p = Pattern.compile("\\s*System.out.println\\(([^;].*\\)*);|\\s*System.out.print\\(([^;].*\\)*);"); //to identify print statements 
  			Matcher m = p.matcher(wordParse);
  			if(m.matches()){
@@ -215,6 +222,23 @@ public class TimeComplexity extends inputParser {
  			}
 			return printComplexity;
  			
- 		}
+ 	}
+ 	/*module to calculate time complexity of IF*/
+ 		/*Module to calculate time complexity of if block*/
+ 	public static int processIf(String wordParse, int currentline) throws FileNotFoundException{
+ 			Pattern p = Pattern.compile("\\s*if\\(.*?\\)"); //regular expression to recognize if loop with no spaces in syntax
+ 			Matcher m = p.matcher(wordParse);
+ 			inputParser ip = new inputParser();
+ 			if(m.matches()){
+ 				 System.out.println("if identified");
+ 				 numLines =0;
+ 				 countLinesInLoop(currentline); //method gives number of lines within if  				
+ 		 		 System.out.println("\n======================================== \n number of lines in if condition: "+ numLines+"\n========================================   \n");
+ 		 		 ifComplexity = numLines; //since it executes only once 
+ 		 		 System.out.println("if complexity : "+ifComplexity);
+ 			}
+ 			return ifComplexity;
+ 		
+ 	
+ 	}
 }
-
