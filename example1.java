@@ -19,9 +19,15 @@ public class welcome(){
 			{
 				System.out.println("Am inside while loop");
 				String whiler = "String in while loop";
-				int bala = 99;
+				int number = 99;
 			}
 			System.out.println("checking print statments");
 			System.out.print("Checking print statements 2");
+			if(a<b)
+			{
+				System.out.println("Am inside if condition");
+				int number = 100;
+				a = b*a;
+			}
 	}	
 }
