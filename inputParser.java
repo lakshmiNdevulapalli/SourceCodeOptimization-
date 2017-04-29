@@ -7,11 +7,14 @@ public class inputParser {
 	
 	@SuppressWarnings("static-access")
 	public void lineParser() throws FileNotFoundException, StackUnderflowException {
+		long startTime =System.currentTimeMillis();
 		int lineCounter =0;
+		
 		TimeComplexity tc  = new TimeComplexity();
 		SpaceComplexity sc = new SpaceComplexity();
 		int timeComplexity = 0;
 		int spaceComplexity =0;
+		
 		Scanner input = new Scanner(new File("example1.java")); // input java file
 		/*Line by line parsing*/
 		while (input.hasNextLine()) {
@@ -22,8 +25,10 @@ public class inputParser {
 			tc.processWhileLoop(line, lineCounter);//calls this method to search for while loop in the input
 			tc.processPrints(line);//calls this method to recognize print statements in input
 			tc.processIf(line, lineCounter);
-			//sc.processLineInit(line);
+			sc.processLineInit(line);
 		}
+		double endTime = System.currentTimeMillis();
+		
 		System.out.println("===================================================\n Total time complexity of print statments : "+tc.printComplexity+"\n===============================================");
 
 		timeComplexity = tc.initComplexity+tc.forLoopComplexity+tc.whileComplexity+tc.printComplexity+tc.ifComplexity;
@@ -32,6 +37,12 @@ public class inputParser {
 		
 		spaceComplexity = sc.initSpaceComplexity;
 		System.out.println("Total space complexity is: "+spaceComplexity);
+		System.out.println("starting time is :"+startTime+"\t Ending time is :"+endTime);
+		System.out.println("Total response time: "+(endTime-startTime));
+		
+		
+		System.out.println();
+		//System.out.println("KB: " + (double) (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1024);
 	//tc.findKeyWord(line)
     input.close();
 }  
