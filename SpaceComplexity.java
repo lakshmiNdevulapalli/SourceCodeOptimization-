@@ -31,8 +31,7 @@ public class SpaceComplexity extends inputParser {
 			initSpaceComplexity += 1;
 		else
 			System.out.println();
-		//complexity += complexity;
-		//System.out.println("Space complexity is: "+complexity);
+		
 		return initSpaceComplexity;
 		
 	}
