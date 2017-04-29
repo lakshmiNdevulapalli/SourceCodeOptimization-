@@ -12,26 +12,35 @@ public class TimeComplexity extends inputParser {
 	static int ifComplexity;
 	static int nValue=0;
 	static int numLines =0;
+	
 	/*module to calculate time complexity of initial statemets*/
 	public static double processLineInit(String wordParse, int currentline){
 		
+		long startTime =System.currentTimeMillis();
 		
-		/*Regex to recognize all variable initializations and import statements and math expressions.*/
+		/*Regex to recognize all variable initializations and import statements and math expressions and arrays.*/
 		
 		Pattern p = Pattern.compile("\\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*\\\".*?\\\"\\s*;|"
 	 		+ "\\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*\\d+\\s*;|"
 	 		+ "\\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*\\d+.\\d+\\s*;|\\s*([^\\s]*boolean)\\s*[a-zA-Z]*\\s*=\\s*[tT]rue\\s*;|"
 	 		+ "\\s*([^\\s]*boolean "
-	 		+ " )\\s*[a-zA-Z]*\\s*=\\s*[fF]alse\\s*;|\\s*import\\s*.*?\\s*;|\\s*([^\\s]*double)\\s*[a-zA-Z]*\\s*=\\s*[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?;|\\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*.*?\\s*;");
+	 		+ " )\\s*[a-zA-Z]*\\s*=\\s*[fF]alse\\s*;|"
+	 		+ "\\s*import\\s*.*?\\s*;|"
+	 		+ "\\s*([^\\s]*double)\\s*[a-zA-Z]*\\s*=\\s*[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?;|"
+	 		+ "\\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*=\\s*.*?\\s*;|"
+	 		+ "\\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*\\[.*?\\]\\s*=\\s*\\{.*?\\}\\s*;|\\s*([^\\s]*[a-zA-Z]*)\\s*[a-zA-Z]*\\s*\\[\\]\\s*=\\s*\\{.*?\\}\\s*;");
  	
 		Matcher m = p.matcher(wordParse);
 		if(m.matches()){
     	 initComplexity++;	//increasing time complexity as the tc for initialization statements is O(1).
      	 //System.out.println(complexity);
     	 System.out.println(wordParse); //printing matched statements with the regex 
+    	 
 		}
+		
         //System.out.println(initComplexity); //printing the current complexity
      	return initComplexity;
+     	
      	
 	}
 	/*Calculating time complexity for For loop*/
@@ -39,6 +48,7 @@ public class TimeComplexity extends inputParser {
 	
  	/*Module to calculate time complexity of fro loop*/
 	public static double processLineForLoop(String wordParse, int currentline) throws FileNotFoundException, StackUnderflowException{
+		long startTime =System.currentTimeMillis();
  		
  		Pattern p = Pattern.compile("\\s*for\\s*\\([^;]*?;[^;]*?;[^)]*?\\)"); //regular expression to recognize for loop with no spaces in syntax
 		Matcher m = p.matcher(wordParse);
@@ -70,7 +80,9 @@ public class TimeComplexity extends inputParser {
 			 }
 			 else
 				 System.out.println("Couldn't find the special character"); 
+			
 	    	}
+		
 		
 		
 		return forLoopComplexity;
@@ -241,4 +253,5 @@ public class TimeComplexity extends inputParser {
  		
  	
  	}
+ 	
 }
