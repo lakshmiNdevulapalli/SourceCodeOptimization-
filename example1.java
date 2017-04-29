@@ -6,6 +6,7 @@ public class welcome(){
 			double salary = 1000.235;
 			boolean test = true;
 			String name = "initial string";
+			int nnumberArray[5]={1,2,3,4,5};
 			for(int i=0;i>50;i++)
 			{
 				System.out.println("Calculate BigO for this loop......");
@@ -27,7 +28,7 @@ public class welcome(){
 			{
 				System.out.println("Am inside if condition");
 				int number = 100;
-				a = b*a;
+				a = b*a;				
 			}
 	}	
 }
