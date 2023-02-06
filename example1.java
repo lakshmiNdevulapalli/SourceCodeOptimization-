@@ -1,3 +1,4 @@
+//Sample Example
 import java.io.*;
 public class welcome(){
 	public static void main(String[] args){
